@@ -14,6 +14,40 @@ $ ykt watch               # 挂着这一个命令就够了
 08:06 已作答 3rK9 [单选题 · 题库/参考答案] -> ['B']
 ```
 
+## 安卓版（APK）
+
+不想开电脑就在手机上用：装安装包，扫码登录即可。
+
+**下载**：[Releases · v0.1.0 安卓安装包](https://github.com/2008lmf/yuketang-helper/releases/latest)
+
+- App 内功能：扫码登录、进课堂、位置签到、课堂答题、点名提醒、实时日志
+- 包名 `cn.ykt.helper`，Android 7.0+（minSdk 24），约 5 MB，自签名
+- 后台靠前台服务 + 常驻通知，想稳定建议允许自启动、关闭电池优化
+
+自己编一个：
+
+```powershell
+cd android
+.\gradlew.bat assembleRelease      # macOS / Linux 用 ./gradlew
+```
+
+签名信息全从环境变量读，仓库里不放 keystore：
+
+```powershell
+$env:YKT_KEYSTORE="C:\path\to\release.keystore"
+$env:YKT_STORE_PASSWORD="..."
+$env:YKT_KEY_ALIAS="ykt"
+$env:YKT_KEY_PASSWORD="..."
+```
+
+没有 keystore 就先生成一个（keytool 随 JDK 自带）：
+
+```powershell
+keytool -genkeypair -keystore release.keystore -alias ykt -keyalg RSA -keysize 2048 -validity 10000
+```
+
+产物在 `android/app/build/outputs/apk/release/app-release.apk`。这个 keystore 丢了就没法给已安装的用户升级，记得备份。
+
 ## 三个功能
 
 **1. 签到（雨课堂只有三种，都支持）**
@@ -135,6 +169,17 @@ ykt/
 ├── remind.py     课表与下一次上课时间
 ├── notify.py     Windows Toast / macOS / Linux / webhook
 └── cli.py        命令行
+
+android/          原生安卓客户端（Kotlin，同一套协议）
+├── app/src/main/java/cn/ykt/helper/
+│   ├── Http.kt        请求头 / Cookie / Bearer
+│   ├── Api.kt         接口封装
+│   ├── LessonSocket.kt 课堂 WS
+│   ├── WatchService.kt 前台服务：轮询 + 签到 + 答题
+│   ├── AnswerEngine.kt 答题构造
+│   ├── MainActivity.kt 界面（扫码 / 课程 / 开关 / 日志）
+│   └── Store.kt       本地配置
+└── app/src/main/res/  布局、图标、主题
 ```
 
 ## 测试

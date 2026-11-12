@@ -17,6 +17,16 @@ state/
 cookies*.json
 *.log
 
+# ---- Android ----
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/release.keystore
+*.apk
+*.jks
+*.keystore
+
 # ---- 编辑器 / 系统 ----
 .vscode/
 .idea/

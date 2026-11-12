@@ -1,0 +1,38 @@
+{
+  "server": "yuketang",
+  "lesson": {
+    "auto_join": true,
+    "watch_courses": [],
+    "poll_interval": 30
+  },
+  "location": {
+    "use_server_center": true,
+    "fallback": {
+      "lat": 0.0,
+      "lng": 0.0,
+      "address": ""
+    }
+  },
+  "answer": {
+    "enabled": true,
+    "delay_ratio": 0.6,
+    "delay_max": 60,
+    "fallback_single": "A",
+    "fallback_multiple": "all",
+    "fill_blank_empty": "",
+    "short_answer_text": "老师好，这道题我暂时没有思路。"
+  },
+  "remind": {
+    "before_minutes": 10,
+    "webhook": "",
+    "timetable": [
+      {
+        "name": "高等数学",
+        "weekday": 1,
+        "time": "08:00",
+        "room": "教三-201",
+        "before_minutes": 10
+      }
+    ]
+  }
+}

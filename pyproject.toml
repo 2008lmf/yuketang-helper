@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yuketang-helper"
+version = "0.1.0"
+description = "雨课堂助手：自动签到、课堂答题、上课提醒（仅面向雨课堂）"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "2008lmf" }]
+keywords = ["yuketang", "rain-classroom", "cli", "automation"]
+dependencies = ["requests>=2.31", "websocket-client>=1.7"]
+
+[project.optional-dependencies]
+qr = ["opencv-python>=4.8"]
+ascii = ["qrcode>=7.4"]
+
+[project.scripts]
+ykt = "ykt.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ykt*"]
